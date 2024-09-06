@@ -1,4 +1,4 @@
-package dev.danvega.social.controller;
+package dev.sparfinder.fal.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

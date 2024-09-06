@@ -1,4 +1,4 @@
-package dev.danvega.social;
+package dev.sparfinder.fal;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
