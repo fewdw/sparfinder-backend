@@ -32,6 +32,12 @@ public class User {
 
     private AccountType accountType;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Boxer boxer;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Coach coach;
+
     public User(String email, String name, String picture, LocalDate createdAt) {
         this.email = email;
         this.name = name;
