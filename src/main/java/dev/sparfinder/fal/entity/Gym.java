@@ -29,6 +29,7 @@ public class Gym {
     @OneToMany(mappedBy = "gym")
     private List<Event> events;
 
+    @Column(name = "profile_pic", nullable = false)
     private String profilePic;
 
     private String rules;

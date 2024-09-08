@@ -21,19 +21,25 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate birthDate;
+    @Column(name = "event_date", nullable = false)
+    private LocalDate eventDate;
 
+    @Column(name = "start_time", nullable = false)
     private LocalTime startTime;
 
-    private int duration;
+    @Column(name = "duration", nullable = false)
+    private Integer duration;
 
+    @Column(nullable = false)
     private String name;
 
     private String description;
 
+    @Column(nullable = false)
     private String location;
 
-    private boolean isPrivate;
+    @Column(name = "is_private", nullable = false)
+    private Boolean isPrivate;
 
     @ManyToOne
     @JoinColumn(name = "gym_id", nullable = false)

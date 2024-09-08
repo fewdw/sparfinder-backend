@@ -21,15 +21,20 @@ public class User {
 
     private String username;
 
+    @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String name;
 
-    private String picture;
+    @Column(name = "profile_pic", nullable = false)
+    private String profilePic;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "account_type", nullable = false)
     private AccountType accountType;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -38,10 +43,10 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Coach coach;
 
-    public User(String email, String name, String picture, LocalDate createdAt) {
+    public User(String email, String name, String profilePic, LocalDate createdAt) {
         this.email = email;
         this.name = name;
-        this.picture = picture;
+        this.profilePic = profilePic;
         this.createdAt = createdAt;
     }
 }

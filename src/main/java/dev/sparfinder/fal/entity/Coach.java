@@ -24,7 +24,9 @@ public class Coach {
     @JoinColumn(name = "gym_id", nullable = false)
     private Gym gym;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String profilePic;
 }

@@ -24,25 +24,27 @@ public class Boxer {
     private User user;
 
     @Column(name = "number_of_fights")
-    private int numberOfFights = 0;
+    private Integer numberOfFights = 0;
 
-    @Column(name = "weight_kg", nullable = false)
-    private int weightKg;
+    @Column(name = "weight_kg")
+    private Integer weightKg = 0;
 
-    @Column(name = "height_cm", nullable = false)
-    private String heightCm;
+    @Column(name = "height_cm")
+    private Integer heightCm = 0;
 
+    @Column(nullable = false)
     private String name;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)
     private Stance stance;
 
-    @Column(name = "profile_picture")
+    @Column(name = "profile_picture", nullable = false)
     private String profilePicture;
 
     @Enumerated(EnumType.STRING)
@@ -52,8 +54,10 @@ public class Boxer {
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
+    @Column(nullable = true)
     private String country;
 
+    @Column(nullable = true)
     private String city;
 
     @Column(name = "waiting_list")
