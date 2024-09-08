@@ -1,10 +1,13 @@
 package dev.sparfinder.fal.service;
 
+import dev.sparfinder.fal.entity.AccountType;
+import dev.sparfinder.fal.entity.Coach;
 import dev.sparfinder.fal.entity.User;
 import dev.sparfinder.fal.repository.BoxerRepository;
 import dev.sparfinder.fal.repository.CoachRepository;
 import dev.sparfinder.fal.repository.UserRepository;
 import dev.sparfinder.fal.response.CreateCoachProfileResponse;
+import dev.sparfinder.fal.response.UserInfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,16 +33,44 @@ public class UserService {
         userRepository.save(newUser);
     }
 
-    public ResponseEntity<User> getUserById(String id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<UserInfoResponse> getUserById(String id) {
+        Optional<User> userOptional = userRepository.findById(id);
 
+        if (userOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOptional.get();
+        return ResponseEntity.ok(new UserInfoResponse(user.getId(), user.getEmail(), user.getName(), user.getUsername(), user.getProfilePic(), user.getAccountType()));
     }
 
-//    public ResponseEntity<CreateCoachProfileResponse> createCoachProfile(String email) {
-//        if ()
-//        // if not a coach profile
-//        // if not a boxer profile
-//        // create it
-//    }
+    public ResponseEntity<CreateCoachProfileResponse> createCoachProfile(String userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOptional.get();
+
+        if (user.getAccountType() != AccountType.USER){
+            return ResponseEntity.badRequest().build();
+        }
+
+        if(coachRepository.findByUserId(userId).isPresent()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        if(boxerRepository.findByUserId(userId).isPresent()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        Coach coach = new Coach(user, user.getName(), user.getProfilePic());
+        coachRepository.save(coach);
+        user.setCoach(coach);
+        user.setAccountType(AccountType.COACH);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new CreateCoachProfileResponse(coach.getId(), coach.getName(), AccountType.COACH));
+    }
 }

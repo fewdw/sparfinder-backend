@@ -29,4 +29,10 @@ public class Coach {
 
     @Column(nullable = false)
     private String profilePic;
+
+    public Coach(User user, String name, String profilePic) {
+        this.user = user;
+        this.name = name;
+        this.profilePic = profilePic;
+    }
 }
