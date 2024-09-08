@@ -16,8 +16,7 @@ import java.time.LocalDate;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String username;
 
@@ -43,10 +42,12 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Coach coach;
 
-    public User(String email, String name, String profilePic, LocalDate createdAt) {
+    public User(String id, String email, String name, String profilePic, LocalDate createdAt, AccountType accountType) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.profilePic = profilePic;
         this.createdAt = createdAt;
+        this.accountType = accountType;
     }
 }

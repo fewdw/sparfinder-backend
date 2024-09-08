@@ -8,20 +8,19 @@ import java.util.Map;
 
 public class OauthUsernameHelper {
 
-    public static String getEmail(OAuth2User principal) {
-
+    public static String getId(OAuth2User principal) {
         if (principal == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not Logged In");
         }
 
         Map<String, Object> attributes = principal.getAttributes();
-        String email = (String) attributes.get("email");
+        String id = (String) attributes.get("sub");
 
-        if (email == null) {
+        if (id == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Username not found in request");
         }
 
-        return email;
+        return id;
     }
 
 }

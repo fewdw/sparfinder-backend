@@ -21,7 +21,7 @@ public class Coach {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "gym_id", nullable = false)
+    @JoinColumn(name = "gym_id")
     private Gym gym;
 
     @Column(nullable = false)

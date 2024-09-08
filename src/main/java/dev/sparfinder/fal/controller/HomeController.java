@@ -19,6 +19,6 @@ public class HomeController {
     @GetMapping("/secured")
     public String secured(@AuthenticationPrincipal OAuth2User principal) {
 
-        return OauthUsernameHelper.getEmail(principal);
+        return OauthUsernameHelper.getId(principal);
     }
 }
