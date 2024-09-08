@@ -19,4 +19,9 @@ public class UserService {
     public void addUser(User newUser) {
         userRepository.save(newUser);
     }
+
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
 }

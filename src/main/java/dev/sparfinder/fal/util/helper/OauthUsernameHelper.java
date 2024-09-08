@@ -1,4 +1,4 @@
-package dev.sparfinder.fal.util;
+package dev.sparfinder.fal.util.helper;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.core.user.OAuth2User;
