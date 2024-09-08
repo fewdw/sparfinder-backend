@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -41,13 +42,13 @@ public class Event {
     private int maxParticipants;
 
     @ManyToMany(mappedBy = "participateList")
-    private Set<Boxer> participantList;
+    private List<Boxer> participantList;
 
     @ManyToMany(mappedBy = "waitingList")
-    private Set<Boxer> waitingList;
+    private List<Boxer> waitingList;
 
     @ManyToMany(mappedBy = "inviteList")
-    private Set<Boxer> invitedList;
+    private List<Boxer> invitedList;
 
 
 

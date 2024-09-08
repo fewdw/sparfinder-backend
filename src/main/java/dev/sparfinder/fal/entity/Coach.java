@@ -20,4 +20,11 @@ public class Coach {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "gym_id", nullable = false)
+    private Gym gym;
+
+    private String name;
+
+    private String profilePic;
 }

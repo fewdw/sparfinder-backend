@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "boxers")
@@ -43,7 +42,7 @@ public class Boxer {
     private Level level;
 
     @ManyToOne
-    @JoinColumn("gym_id")
+    @JoinColumn(name = "gym_id")
     private Gym gym;
 
     private String country;
@@ -56,7 +55,7 @@ public class Boxer {
             joinColumns = @JoinColumn(name = "boxer_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id")
     )
-    private Set<Event> waitingList;
+    private List<Event> waitingList;
 
     @ManyToMany
     @JoinTable(
@@ -64,7 +63,7 @@ public class Boxer {
             joinColumns = @JoinColumn(name = "boxer_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id")
     )
-    private Set<Event> inviteList;
+    private List<Event> inviteList;
 
     @ManyToMany
     @JoinTable(
@@ -72,7 +71,7 @@ public class Boxer {
             joinColumns = @JoinColumn(name = "boxer_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id")
     )
-    private Set<Event> participateList;
+    private List<Event> participateList;
 
     // ADD RATING LISTS ; BOXERS RATED, EVENTS RATED, GYMS RATED, SELF RATING + NUM OF RATINGS.
 }
