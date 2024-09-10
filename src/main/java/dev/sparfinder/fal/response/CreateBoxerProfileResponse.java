@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCoachProfileResponse {
+public class CreateBoxerProfileResponse {
     private Long id;
     private String name;
     private AccountType accountType;

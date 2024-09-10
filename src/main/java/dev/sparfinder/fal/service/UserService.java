@@ -1,11 +1,13 @@
 package dev.sparfinder.fal.service;
 
+import dev.sparfinder.fal.response.CreateBoxerProfileResponse;
 import dev.sparfinder.fal.entity.AccountType;
 import dev.sparfinder.fal.entity.Coach;
 import dev.sparfinder.fal.entity.User;
 import dev.sparfinder.fal.repository.BoxerRepository;
 import dev.sparfinder.fal.repository.CoachRepository;
 import dev.sparfinder.fal.repository.UserRepository;
+import dev.sparfinder.fal.request.CreateBoxerProfileRequest;
 import dev.sparfinder.fal.response.CreateCoachProfileResponse;
 import dev.sparfinder.fal.response.UserInfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +74,10 @@ public class UserService {
         userRepository.save(user);
 
         return ResponseEntity.ok(new CreateCoachProfileResponse(coach.getId(), coach.getName(), AccountType.COACH));
+    }
+
+    public ResponseEntity<CreateBoxerProfileResponse> createBoxerProfile(String id, CreateBoxerProfileRequest boxer) {
+
+
     }
 }

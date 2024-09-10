@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateBoxerProfileRequest {
+    validate
     private int numberOfFights;
     private Integer weightKg = 0;
     private Integer heightCm = 0;
