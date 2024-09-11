@@ -24,6 +24,9 @@ public class Coach {
     @JoinColumn(name = "gym_id")
     private Gym gym;
 
+    @Column(name = "is_owner", nullable = true)
+    private boolean isOwner;
+
     @Column(nullable = false)
     private String name;
 
