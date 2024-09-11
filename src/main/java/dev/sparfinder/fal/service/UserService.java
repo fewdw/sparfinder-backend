@@ -109,46 +109,4 @@ public class UserService {
         return ResponseEntity.ok(new CreateBoxerProfileResponse(newBoxer.getId(), newBoxer.getName(), AccountType.BOXER));
     }
 
-    public ResponseEntity<CoachProfile> getOwnCoachProfile(String id) {
-
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-
-        System.out.print(user.getName() + " found.");
-
-        if (user.getAccountType() != AccountType.COACH){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is not a coach");
-        }
-        System.out.print("returning " + user.getName() + " found.");
-        return ResponseEntity.ok(new CoachProfile(
-                user.getEmail(),
-                user.getName(),
-                user.getProfilePic(),
-                user.getCreatedAt()
-        ));
-    }
-
-    public ResponseEntity<BoxerProfile> getOwnBoxerProfile(String id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-
-        if (user.getAccountType() != AccountType.BOXER){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is not a boxer");
-        }
-
-        return ResponseEntity.ok(new BoxerProfile(
-                user.getEmail(),
-                user.getName(),
-                user.getProfilePic(),
-                user.getCreatedAt(),
-                user.getBoxer().getNumberOfFights(),
-                user.getBoxer().getWeightKg(),
-                user.getBoxer().getHeightCm(),
-                user.getBoxer().getBirthDate(),
-                user.getBoxer().getStance(),
-                user.getBoxer().getLevel(),
-                user.getBoxer().getCountry(),
-                user.getBoxer().getCity()
-        ));
-    }
 }

@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "info")
+    @GetMapping(value = "info", produces = "application/json")
     public ResponseEntity<UserInfoResponse> getUserInfo(@AuthenticationPrincipal OAuth2User principal) {
         try{
             return userService.getUserById(OauthUsernameHelper.getId(principal));
@@ -27,32 +27,12 @@ public class UserController {
         }
     }
 
-    // COACH PROFILE ROUTES
-
-    @GetMapping(value = "profile/coach")
-    public ResponseEntity<CoachProfile> geOwnCoachProfile(@AuthenticationPrincipal OAuth2User principal) {
-        try{
-            return userService.getOwnCoachProfile(OauthUsernameHelper.getId(principal));
-        } catch (Exception e){
-            return ResponseEntity.notFound().build();
-        }
-    }
+    // CREATE PROFILES
 
     @PostMapping(value = "profile/coach")
     public ResponseEntity<CreateCoachProfileResponse> createCoachProfile(@AuthenticationPrincipal OAuth2User principal) {
         try {
             return userService.createCoachProfile(OauthUsernameHelper.getId(principal));
-        } catch (Exception e){
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    // BOXER PROFILE ROUTES
-
-    @GetMapping("profile/boxer")
-    public ResponseEntity<BoxerProfile> getOwnBoxerProfile(@AuthenticationPrincipal OAuth2User principal) {
-        try{
-            return userService.getOwnBoxerProfile(OauthUsernameHelper.getId(principal));
         } catch (Exception e){
             return ResponseEntity.notFound().build();
         }
