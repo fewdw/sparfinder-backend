@@ -36,4 +36,9 @@ public class Gym {
 
     private String location;
 
+    @Enumerated(EnumType.STRING)
+    private Country country;
+
+    private String city;
+
 }

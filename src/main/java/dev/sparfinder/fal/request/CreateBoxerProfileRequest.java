@@ -1,13 +1,12 @@
 package dev.sparfinder.fal.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dev.sparfinder.fal.Validation.ValidEnum;
+import dev.sparfinder.fal.entity.Country;
 import dev.sparfinder.fal.entity.Gender;
 import dev.sparfinder.fal.entity.Level;
 import dev.sparfinder.fal.entity.Stance;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,31 +21,37 @@ import java.time.LocalDate;
 public class CreateBoxerProfileRequest {
 
     @JsonProperty("number_of_fights")
-    @NotEmpty(message = "Number of fights is required")
-    @Size(min = 0, max = 1000, message = "Number of fights must be between 1 and 1000")
-    private int numberOfFights;
+    @Min(value = 1, message = "Number of fights must be at least 1")
+    @Max(value = 100, message = "Number of fights must be at most 100")
+    private Integer numberOfFights;
 
     @JsonProperty("weight_kg")
-    private Integer weightKg = 0;
+    @Min(value = 0, message = "Weight must be at least 0")
+    @Max(value = 300, message = "Weight must be at most 300")
+    private int weightKg = 0;
 
     @JsonProperty("height_cm")
-    private Integer heightCm = 0;
+    @Min(value = 1, message = "Height must be a positive number")
+    @Max(value = 300, message = "Height must be at most 300")
+    private int heightCm = 0;
 
+    @ValidEnum(enumClass = Gender.class, message = "Invalid stance value")
     private Gender gender;
 
     @JsonProperty("birth_date")
+    @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
 
+    @ValidEnum(enumClass = Stance.class, message = "Invalid stance value")
     private Stance stance;
 
-    @JsonProperty("profile_picture")
-
-    private String profilePicture;
-
+    @ValidEnum(enumClass = Level.class, message = "Invalid stance value")
     private Level level;
 
-    private String country;
+    @ValidEnum(enumClass = Country.class, message = "Invalid stance value")
+    private Country country;
 
+    @NotEmpty
     private String city;
 
 }

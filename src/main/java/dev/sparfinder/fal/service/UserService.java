@@ -112,7 +112,7 @@ public class UserService {
                 boxerRequest.getGender(),
                 boxerRequest.getBirthDate(),
                 boxerRequest.getStance(),
-                boxerRequest.getProfilePicture(),
+                user.getProfilePic(),
                 boxerRequest.getLevel(),
                 boxerRequest.getCountry(),
                 boxerRequest.getCity()

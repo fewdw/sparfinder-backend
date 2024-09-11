@@ -55,7 +55,8 @@ public class Boxer {
     private Gym gym;
 
     @Column(nullable = true)
-    private String country;
+    @Enumerated(EnumType.STRING)
+    private Country country;
 
     @Column(nullable = true)
     private String city;
@@ -87,7 +88,7 @@ public class Boxer {
     )
     private List<Event> participateList;
 
-    public Boxer(User user, Integer numberOfFights, Integer weightKg, Integer heightCm, String name, Gender gender, LocalDate birthDate, Stance stance, String profilePicture, Level level, String country, String city) {
+    public Boxer(User user, Integer numberOfFights, Integer weightKg, Integer heightCm, String name, Gender gender, LocalDate birthDate, Stance stance, String profilePicture, Level level, Country country, String city) {
         this.user = user;
         this.numberOfFights = numberOfFights;
         this.weightKg = weightKg;
