@@ -1,9 +1,7 @@
 package dev.sparfinder.fal.controller;
 
 import dev.sparfinder.fal.request.CreateBoxerProfileRequest;
-import dev.sparfinder.fal.response.CreateBoxerProfileResponse;
-import dev.sparfinder.fal.response.CreateCoachProfileResponse;
-import dev.sparfinder.fal.response.UserInfoResponse;
+import dev.sparfinder.fal.response.*;
 import dev.sparfinder.fal.service.UserService;
 import dev.sparfinder.fal.util.helper.OauthUsernameHelper;
 import jakarta.validation.Valid;
@@ -22,17 +20,51 @@ public class UserController {
 
     @GetMapping(value = "info")
     public ResponseEntity<UserInfoResponse> getUserInfo(@AuthenticationPrincipal OAuth2User principal) {
-        return userService.getUserById(OauthUsernameHelper.getId(principal));
+        try{
+            return userService.getUserById(OauthUsernameHelper.getId(principal));
+        } catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // COACH PROFILE ROUTES
+
+    @GetMapping(value = "profile/coach")
+    public ResponseEntity<CoachProfile> geOwnCoachProfile(@AuthenticationPrincipal OAuth2User principal) {
+        try{
+            return userService.getOwnCoachProfile(OauthUsernameHelper.getId(principal));
+        } catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping(value = "profile/coach")
     public ResponseEntity<CreateCoachProfileResponse> createCoachProfile(@AuthenticationPrincipal OAuth2User principal) {
-        return userService.createCoachProfile(OauthUsernameHelper.getId(principal));
+        try {
+            return userService.createCoachProfile(OauthUsernameHelper.getId(principal));
+        } catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // BOXER PROFILE ROUTES
+
+    @GetMapping("profile/boxer")
+    public ResponseEntity<BoxerProfile> getOwnBoxerProfile(@AuthenticationPrincipal OAuth2User principal) {
+        try{
+            return userService.getOwnBoxerProfile(OauthUsernameHelper.getId(principal));
+        } catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("profile/boxer")
     public ResponseEntity<CreateBoxerProfileResponse> createBoxerProfile(@AuthenticationPrincipal OAuth2User principal, @RequestBody @Valid CreateBoxerProfileRequest boxer) {
-        return userService.createBoxerProfile(OauthUsernameHelper.getId(principal), boxer);
+        try{
+            return userService.createBoxerProfile(OauthUsernameHelper.getId(principal), boxer);
+        } catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

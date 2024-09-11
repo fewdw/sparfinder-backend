@@ -20,9 +20,6 @@ public class Gym {
 
     private String name;
 
-    @OneToOne(mappedBy = "coach", cascade = CascadeType.ALL)
-    private Coach coachOwner;
-
     @OneToMany(mappedBy = "gym")
     private List<Coach> coaches;
 
