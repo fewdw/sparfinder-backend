@@ -14,7 +14,6 @@ public class UserInfoResponse {
     private String id;
     private String email;
     private String name;
-    private String username;
     private String profilePic;
     private AccountType accountType;
 }

@@ -87,5 +87,20 @@ public class Boxer {
     )
     private List<Event> participateList;
 
+    public Boxer(User user, Integer numberOfFights, Integer weightKg, Integer heightCm, String name, Gender gender, LocalDate birthDate, Stance stance, String profilePicture, Level level, String country, String city) {
+        this.user = user;
+        this.numberOfFights = numberOfFights;
+        this.weightKg = weightKg;
+        this.heightCm = heightCm;
+        this.name = name;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.stance = stance;
+        this.profilePicture = profilePicture;
+        this.level = level;
+        this.country = country;
+        this.city = city;
+    }
+
     // ADD RATING LISTS ; BOXERS RATED, EVENTS RATED, GYMS RATED, SELF RATING + NUM OF RATINGS.
 }

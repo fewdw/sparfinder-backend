@@ -1,5 +1,6 @@
 package dev.sparfinder.fal.service;
 
+import dev.sparfinder.fal.entity.Boxer;
 import dev.sparfinder.fal.response.CreateBoxerProfileResponse;
 import dev.sparfinder.fal.entity.AccountType;
 import dev.sparfinder.fal.entity.Coach;
@@ -43,7 +44,7 @@ public class UserService {
         }
 
         User user = userOptional.get();
-        return ResponseEntity.ok(new UserInfoResponse(user.getId(), user.getEmail(), user.getName(), user.getUsername(), user.getProfilePic(), user.getAccountType()));
+        return ResponseEntity.ok(new UserInfoResponse(user.getId(), user.getEmail(), user.getName(), user.getProfilePic(), user.getAccountType()));
     }
 
     public ResponseEntity<CreateCoachProfileResponse> createCoachProfile(String userId) {
@@ -73,11 +74,57 @@ public class UserService {
         user.setAccountType(AccountType.COACH);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new CreateCoachProfileResponse(coach.getId(), coach.getName(), AccountType.COACH));
+        return ResponseEntity.ok(new CreateCoachProfileResponse(
+                coach.getId(),
+                coach.getName(),
+                AccountType.COACH)
+        );
     }
 
-    public ResponseEntity<CreateBoxerProfileResponse> createBoxerProfile(String id, CreateBoxerProfileRequest boxer) {
+    public ResponseEntity<CreateBoxerProfileResponse> createBoxerProfile(String id, CreateBoxerProfileRequest boxerRequest) {
+
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOptional.get();
+
+        if (user.getAccountType() != AccountType.USER){
+            return ResponseEntity.badRequest().build();
+        }
+
+        if(coachRepository.findByUserId(id).isPresent()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        if(boxerRepository.findByUserId(id).isPresent()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        Boxer newBoxer = new Boxer(
+                user,
+                boxerRequest.getNumberOfFights(),
+                boxerRequest.getWeightKg(),
+                boxerRequest.getHeightCm(),
+                user.getName(),
+                boxerRequest.getGender(),
+                boxerRequest.getBirthDate(),
+                boxerRequest.getStance(),
+                boxerRequest.getProfilePicture(),
+                boxerRequest.getLevel(),
+                boxerRequest.getCountry(),
+                boxerRequest.getCity()
+        );
+
+        boxerRepository.save(newBoxer);
+        user.setBoxer(newBoxer);
+        user.setAccountType(AccountType.BOXER);
+        userRepository.save(user);
 
 
+
+        return ResponseEntity.ok(new CreateBoxerProfileResponse(newBoxer.getId(), newBoxer.getName(), AccountType.BOXER));
     }
 }
