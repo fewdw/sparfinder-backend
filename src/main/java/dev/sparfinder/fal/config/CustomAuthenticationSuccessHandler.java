@@ -42,9 +42,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             userService.addUser(newUser);
         }
 
-        String redirectUrl = UriComponentsBuilder.fromUriString(frontendUrl).build().toUriString();
-        String testUrl = UriComponentsBuilder.fromUriString("http://localhost:8080/api/user/info").build().toUriString();
-        response.sendRedirect(testUrl);
+        String frontend = UriComponentsBuilder.fromUriString(frontendUrl).build().toUriString();
+        response.sendRedirect(frontend);
     }
 
 
