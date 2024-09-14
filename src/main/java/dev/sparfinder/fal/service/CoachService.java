@@ -1,8 +1,11 @@
 package dev.sparfinder.fal.service;
 
 import dev.sparfinder.fal.entity.AccountType;
+import dev.sparfinder.fal.entity.Coach;
 import dev.sparfinder.fal.entity.User;
+import dev.sparfinder.fal.repository.CoachRepository;
 import dev.sparfinder.fal.repository.UserRepository;
+import dev.sparfinder.fal.request.ChangeNameRequest;
 import dev.sparfinder.fal.response.BoxerProfile;
 import dev.sparfinder.fal.response.CoachProfile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ public class CoachService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CoachRepository coachRepository;
 
     public ResponseEntity<CoachProfile> getOwnCoachProfile(String id) {
 
@@ -37,4 +42,15 @@ public class CoachService {
     }
 
 
+    public ResponseEntity<ChangeNameRequest> changeName(String id, ChangeNameRequest name) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        Coach coach = coachRepository.findByUser(user)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coach not found"));
+        user.setName(name.getName());
+        userRepository.save(user);
+        coach.setName(name.getName());
+        coachRepository.save(coach);
+        return ResponseEntity.ok(name);
+    }
 }
