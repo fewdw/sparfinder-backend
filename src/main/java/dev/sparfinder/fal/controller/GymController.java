@@ -1,6 +1,6 @@
 package dev.sparfinder.fal.controller;
 
-import dev.sparfinder.fal.response.CreateGymEntity;
+import dev.sparfinder.fal.request.CreateGymEntity;
 import dev.sparfinder.fal.service.GymService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
