@@ -22,10 +22,10 @@ public class Coach {
 
     @ManyToOne
     @JoinColumn(name = "gym_id")
-    private Gym gym;
+    private Gym gym = null;
 
     @Column(name = "is_owner", nullable = true)
-    private boolean isOwner;
+    private boolean isOwner = false;
 
     @Column(nullable = false)
     private String name;

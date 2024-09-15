@@ -34,11 +34,9 @@ public class Gym {
 
     private String rules;
 
-    private String location;
+    private String address;
 
     @Enumerated(EnumType.STRING)
     private Country country;
-
-    private String city;
 
 }

@@ -4,6 +4,7 @@ import dev.sparfinder.fal.request.CreateGymEntity;
 import dev.sparfinder.fal.service.GymService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -19,7 +20,7 @@ public class GymController {
     @Autowired
     private GymService gymService;
 
-    @PostMapping
+    @PostMapping(produces = "application/json")
     public ResponseEntity<CreateGymEntity> createGym(@AuthenticationPrincipal OAuth2User principal, @RequestBody @Valid CreateGymEntity gym) {
         try {
             return gymService.createGym(principal, gym);
