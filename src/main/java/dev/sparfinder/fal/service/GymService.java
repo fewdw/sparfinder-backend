@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
+import java.util.Base64;
 
 @Service
 public class GymService {
@@ -38,7 +39,7 @@ public class GymService {
         /*
         Add gym to coach, add coach to gym, create and save gym and other entities.
          */
-        continue here....
+
 
         return ResponseEntity.ok(gym);
     }
