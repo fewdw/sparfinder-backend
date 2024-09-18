@@ -8,10 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/gym")
@@ -20,12 +17,13 @@ public class GymController {
     @Autowired
     private GymService gymService;
 
-    @PostMapping(produces = "application/json")
-    public ResponseEntity<CreateGymEntity> createGym(@AuthenticationPrincipal OAuth2User principal, @RequestBody @Valid CreateGymEntity gym) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CreateGymEntity> createGym(@AuthenticationPrincipal OAuth2User principal, @Valid @ModelAttribute CreateGymEntity gym) {
         try {
             return gymService.createGym(principal, gym);
         } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            System.out.print(e);
+            return ResponseEntity.badRequest().build();
         }
     }
 
