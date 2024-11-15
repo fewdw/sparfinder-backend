@@ -1,6 +1,9 @@
 package dev.sparfinder.fal.controller;
 
+import dev.sparfinder.fal.entity.Gym;
 import dev.sparfinder.fal.request.CreateGymEntity;
+import dev.sparfinder.fal.response.CoachGymViewResponse;
+import dev.sparfinder.fal.response.CoachViewGymNameResponse;
 import dev.sparfinder.fal.service.GymService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,26 @@ public class GymController {
     public ResponseEntity<CreateGymEntity> createGym(@AuthenticationPrincipal OAuth2User principal, @Valid @ModelAttribute CreateGymEntity gym) {
         try {
             return gymService.createGym(principal, gym);
+        } catch (Exception e) {
+            System.out.print(e);
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/name")
+    public ResponseEntity<CoachViewGymNameResponse> viewCoachGymName(@AuthenticationPrincipal OAuth2User principal) {
+        try {
+            return gymService.viewCoachGymName(principal);
+        } catch (Exception e) {
+            System.out.print(e);
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<CoachGymViewResponse> viewCoachGym(@AuthenticationPrincipal OAuth2User principal) {
+        try {
+            return gymService.viewCoachGym(principal);
         } catch (Exception e) {
             System.out.print(e);
             return ResponseEntity.badRequest().build();

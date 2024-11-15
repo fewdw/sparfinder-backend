@@ -75,6 +75,12 @@
 			<version>2.20.28</version> <!-- Use the latest stable version -->
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>5.3.22</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
