@@ -40,7 +40,7 @@ public class GymController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/card")
     public ResponseEntity<CoachGymViewResponse> viewCoachGym(@AuthenticationPrincipal OAuth2User principal) {
         try {
             return gymService.viewCoachGym(principal);

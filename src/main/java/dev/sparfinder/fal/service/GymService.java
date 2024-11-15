@@ -90,6 +90,15 @@ public class GymService {
     }
 
     public ResponseEntity<CoachGymViewResponse> viewCoachGym(OAuth2User principal) {
-        return null;
+        String id = OauthUsernameHelper.getId(principal);
+        Coach coach = coachRepository.findByUserId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        if (coach.getGym() == null || !coach.isOwner()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Gym gym = coach.getGym();
+        return ResponseEntity.ok(new CoachGymViewResponse(gym.getId(), gym.getName(), gym.getProfilePic(), gym.getRules(), gym.getAddress(), gym.getCountry()));
     }
 }
